@@ -1,0 +1,342 @@
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #fafafa;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* App Selector Bar */
+.app-selector-bar {
+  padding: 20px;
+  background-color: #fafafa;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.app-selector {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.app-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  object-fit: cover;
+}
+.app-icon:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+.app-icon.active {
+  transform: scale(1.1);
+  border: 2px solid #30545b;
+  opacity: 1;
+}
+
+/* NAVBAR */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 36, 0);
+  backdrop-filter: blur(6px);
+  height: 70px;
+  margin-right: 24px;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  height: 73px;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+  padding-inline-start: 30px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+/* Toggle button (hamburger) */
+.nav-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 40px;
+  gap: 40px;
+  max-width: 100%;
+}
+.fade-container {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+.fade-out {
+  opacity: 0;
+}
+.fade-slide-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.4s ease-in-out;
+}
+.fade-slide-out {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease-in-out;
+}
+
+/* Left: Achievements */
+.mobile-achievements {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+.phone-frame {
+  position: relative;
+  width: 250px;
+  margin: 0 auto 30px auto;
+}
+.phone-frame .frame-img {
+  width: 100%;
+  display: block;
+}
+.phone-frame .app-screen {
+  position: absolute;
+  top: 6.1%;
+  left: 4.1%;
+  width: 91.3%;
+  height: 89%;
+  object-fit: fill;
+  border-radius: 4px;
+  transition: opacity 0.5s ease;
+}
+.mobile-achievements h2 {
+  margin-bottom: 15px;
+  color: #30545b;
+}
+.mobile-achievements ul {
+  list-style: none;
+  line-height: 2;
+}
+.mobile-achievements ul li:hover {
+  transform: translateX(5px);
+  color: #30545b;
+  cursor: default;
+}
+
+/* Right: App Info */
+.app-showcase {
+  flex: 2;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+.app-logo img {
+  width: 100%;
+  max-height: 80px;
+  object-fit: contain;
+  border-radius: 16px;
+  margin-bottom: 15px;
+}
+.app-title {
+  font-size: 28px;
+  color: #30545b;
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+.description {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.tech-used h3 {
+  margin-top: 100px;
+  margin-bottom: 10px;
+  color: #30545b;
+}
+.tech-used ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.tech-used li {
+  background: #f0f0f0;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+/* Buttons */
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+}
+.btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+}
+.btn.primary {
+  background-color: #30545b;
+}
+.btn.secondary {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .app-selector {
+    gap: 12px;
+  }
+  .app-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  /* Show hamburger button */
+  .nav-toggle {
+    display: block;
+    font-size: 28px;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-toggle:hover {
+    color: #007bff;
+  }
+
+  /* Hide links until opened */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(15, 23, 36, 0.95);
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+
+    /* 🔹 Vertical scrolling behavior */
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  /* Optional: scroll bar styling */
+  .nav-links::-webkit-scrollbar {
+    width: 6px;
+  }
+  .nav-links::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 3px;
+  }
+
+  /* Adjust layout */
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 24px;
+  }
+
+  .mobile-achievements,
+  .app-showcase {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .app-title {
+    font-size: 24px;
+    margin-top: 40px;
+  }
+
+  .app-selector {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    justify-content: flex-start;
+  }
+
+  .app-selector-bar {
+    text-align: left;
+  }
+
+  .app-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .logo-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .store-logo {
+    height: 32px;
+  }
+}
+
+.logo-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 50px;
+}
+
+.store-logo {
+  height: 40px;
+  width: auto;
+  max-width: 100%;
+}

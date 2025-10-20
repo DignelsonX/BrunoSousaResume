@@ -1,0 +1,62 @@
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #121212;
+    color: #f0f0f0;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5 {
+    color: #00aaff;
+    margin-bottom: 10px;
+  }
+  
+  /* Links & Buttons */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+  }
+  
+  .btn.primary {
+    background-color: #00aaff;
+    color: #fff;
+  }
+  
+  .btn.secondary {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .btn:hover {
+    opacity: 0.85;
+  }
+  
+  /* Containers */
+  .container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Responsive Layout */
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+  }
+  

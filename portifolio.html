@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bruno Sousa portifolio</title>
+  <link rel="stylesheet" href="app-showcase.css"/>
+</head>
+
+<body>
+
+  <!-- App Selector Bar -->
+
+  <nav class="navbar">
+    <div class="nav-content">
+      <a href="index.html" class="logo">
+        <img src="assets/images/signature.png" alt="Bruno Resume">
+      </a>
+  
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        ☰
+      </button>
+  
+      <ul class="nav-links" id="navLinks">
+        <li><img src="assets/images/sp_icon.png" class="app-icon active" onclick="showApp(0)" alt="SecurePass" /></li>
+        <li><img src="assets/images/sp_kiosk_icon.png" class="app-icon" onclick="showApp(1)" alt="SecurePass Kiosk" /></li>
+        <li><img src="assets/images/sp_id_scanner_icon.png" class="app-icon" onclick="showApp(2)" alt="Id Scanner" /></li>
+        <li><img src="assets/images/sp_contacless_icon.png" class="app-icon" onclick="showApp(3)" alt="Contactless" /></li>
+        <li><img src="assets/images/ic_sp_ict.png" class="app-icon" onclick="showApp(4)" alt="SP with ICT" /></li>
+        <li><img src="assets/images/ic_sp_gallagher.png" class="app-icon" onclick="showApp(5)" alt="SP with Gallagher" /></li>
+        <li><img src="assets/images/ic_sp_integriti.png" class="app-icon" onclick="showApp(6)" alt="SP with Inner Range" /></li>
+        <li><img src="assets/images/ic_sp_staff.png" class="app-icon" onclick="showApp(7)" alt="SP for Staff" /></li>
+        <li><img src="assets/images/ic_assets_ppm.png" class="app-icon" onclick="showApp(8)" alt="Assets PPM" /></li>
+        <li><img src="assets/images/ic_cws.png" class="app-icon" onclick="showApp(9)" alt="CPFL Work System" /></li>
+        <li><img src="assets/images/pass_keeper.png" class="app-icon" onclick="showApp(10)" alt="PassKeeper" /></li>
+        <li><img src="assets/images/my_money_icon.png" class="app-icon" onclick="showApp(11)" alt="My Money" /></li>
+        <li><img src="assets/images/btb_press_icon.png" class="app-icon" onclick="showApp(12)" alt="BTB Press" /></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- App Content -->
+  <div id="appContent" class="container fade-container">    
+    <!-- Left Column: App Achievements -->
+    <aside class="mobile-achievements">
+      <div class="phone-frame">
+        <img src="assets/images/frame.png" alt="Phone Frame" class="frame-img" />
+        <img src="assets/images/screenshots/sp/sp_splash.jpeg" alt="App Screen" class="app-screen" id="rotatingScreen" />
+      </div>
+      <div class="achievements">
+        <ul id="achievementList"></ul>
+      <div class="store-links" style="margin-top:16px;">
+        <a id="googlePlayBtn" href="https://play.google.com/store/apps/details?id=com.virtualtag.healthsafesecurepass&hl=en-NZ" target="_blank">
+          <img src="assets/images/google-playstore-white.png" alt="Get it on Google Play" style="height:40px;">
+        </a>
+        <a id="appStoreBtn" href="https://apps.apple.com/us/app/securepass-for-contractors/id1157142981" target="_blank">
+          <img src="assets/images/apple-store-white.png" alt="Download on the App Store" style="height:40px;">
+        </a>
+      </div>
+      <br/>
+      <p style="font-size:0.6rem; color: grey;">*Some apps my not be available on store anymore.</p>
+    </aside>
+
+    <!-- Right Column: App Details -->
+    <main class="app-showcase">
+      <div class="app-header" style="display:flex; align-items:center; gap:12px; justify-content:center; margin-bottom:16px; padding: 12px;">
+        <img 
+          id="appLogo" 
+          src="assets/images/sp_icon.png" 
+          alt="SecurePass logo" 
+          style="
+            width:70px; 
+            height:70px; 
+            border-radius:14px; 
+            box-shadow:0 4px 10px rgba(0,0,0,0.15); 
+            object-fit:cover;
+          "
+        />
+        <h1 class="app-title" id="appTitle" style="font-size:2.4rem; margin:0;">SecurePass</h1>
+      </div>
+      <div class="tech-used">
+      <h3>About this app</h3>
+      </div>
+      
+      <p class="description" id="appDescription">
+        SecurePass is a safety companion app designed for contractors working in hazardous environments. Once signed in, the app automatically detects when the user enters a designated hazard zone using geofencing technology and begins real-time location tracking. In case of an emergency, users can quickly request help by performing a long press on the emergency button (previously triggered by shaking the phone). SecurePass also features a built-in heart rate monitor that continuously sends vital information to the management dashboard, helping supervisors stay informed about workers’ safety and well-being.
+      </p>
+      <div class="tech-used">
+        <h3>Tech Stack</h3>
+        <ul id="techList">
+          <li>Android Native</li>
+          <li>Java</li>
+          <li>REST API</li>
+          <li>SQLite</li>
+          <li>Geofence</li>
+          <li>Heart Rate Scanner</li>
+          <li>Accelerometer</li>
+        </ul>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    const screen = document.getElementById('rotatingScreen');
+    const appLogo = document.getElementById('appLogo');
+    //const appUrl = document.getElementById('appURL');
+    const appTitle = document.getElementById('appTitle');
+    const appDescription = document.getElementById('appDescription');
+    const techList = document.getElementById('techList');
+    const achievementList = document.getElementById('achievementList');
+    const appIcons = document.querySelectorAll('.app-icon');
+    const contentContainer = document.getElementById('appContent');
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+      // Toggle mobile menu visibility
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    // Close menu when any link is clicked
+    navLinks.querySelectorAll('li').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+      });
+    });
+
+    const apps = [
+      {
+        title: "SecurePass",
+        logo: "assets/images/sp_icon.png",
+        description: "SecurePass is a safety companion app designed for contractors working in hazardous environments. Once signed in, the app automatically detects when the user enters a designated hazard zone using geofencing technology and begins real-time location tracking. In case of an emergency, users can quickly request help by performing a long press on the emergency button (previously triggered by shaking the phone). SecurePass also features a built-in heart rate monitor that continuously sends vital information to the management dashboard, helping supervisors stay informed about workers’ safety and well-being.",
+        url: "https://play.google.com/store/apps/details?id=com.virtualtag.healthsafesecurepass&hl=en-NZ",
+        iosUrl:"https://apps.apple.com/us/app/securepass-for-contractors/id1157142981",
+        tech: [
+          "Android Native",
+          "Java",
+          "REST API",
+          "SQLite",
+          "Data Provider",
+          "Geofence",
+          "Heart Rate",
+          "Camera Scanner",
+          "Accelerometer",
+          "Biometrics"
+        ],
+        screens: [
+          "assets/images/screenshots/sp/sp_phone.png",
+          "assets/images/screenshots/sp/sp_sms.png",
+          "assets/images/screenshots/sp/sp_form.png",
+          "assets/images/screenshots/sp/sp_message.png",
+          "assets/images/screenshots/sp/sp_shake.png",
+          "assets/images/screenshots/sp/sp_main.png",
+          "assets/images/screenshots/sp/sp_in_emergency.png",
+          "assets/images/screenshots/sp/sp_list_locations.png",
+          "assets/images/screenshots/sp/sp_location_select.png",
+        ],
+        /*achievements: [
+          "🏆 100K+ Downloads",
+          "⭐ 4.8+ Play Store Rating",
+          "🌐 Featured in 50+ countries",
+          "🚀 Trending in Productivity"
+        ]*/
+      },
+      {
+        title: "SecurePass Kiosk",
+        logo: "assets/images/sp_kiosk_icon.png",
+        description: "SecurePass Kiosk is a streamlined self-sign-in solution designed for contractors, staff, guests, and visitors. Fully integrated with the SecurePass dashboard, it ensures a seamless check-in experience. HealthSafe handles the complete setup, from software installation to hardware deployment, so users can focus on what matters most.",
+        url: "https://play.google.com/store/apps/details?id=com.healthsafe.kiosk&hl=en-NZ",
+        iosUrl:"https://apps.apple.com/us/app/securepass-kiosk/id1159118965",
+        tech: [    
+          "Flutter",
+          "Dart",
+          "REST API",
+          "Camera Scanner",
+          "Printer Integration",
+          "Peripheral Devices",
+          "Bluetooth",
+          "Printers"
+        ],
+        
+        screens: [
+          "assets/images/screenshots/sp_kiosk/k_main.png", 
+          "assets/images/screenshots/sp_kiosk/k_mode_sign.png", 
+          "assets/images/screenshots/sp_kiosk/k_signin.png",
+        ],
+         /*achievements: [
+          "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "SecurePass Id Scanner",
+        logo: "assets/images/sp_id_scanner_icon.png",
+        description: "SecurePass ID Scanner is an app integrated with the SecurePass dashboard that allows company managers to quickly scan a contractor’s ID or badge and instantly access all relevant information. The app displays details such as completed trainings, expired certifications, pending documents, and any other actions required for the contractor. By providing instant, centralized access to critical contractor data, it helps managers ensure compliance, streamline verification, and maintain safety and operational efficiency.",
+        url: "https://play.google.com/store/apps/details?id=com.healthsafe.securepassidchecker&hl=en-NZ",
+        iosUrl:"#",
+        tech: [
+          "Android Native",
+          "Java",
+          "REST API",
+          "SQLite",
+          "Camera Scanner",
+        ],
+        screens: [
+          "assets/images/screenshots/sp_id_scanner/id_login.png", 
+          "assets/images/screenshots/sp_id_scanner/id_button.png", 
+          "assets/images/screenshots/sp_id_scanner/id_scanning.png",
+          "assets/images/screenshots/sp_id_scanner/id_profile.png",
+          "assets/images/screenshots/sp_id_scanner/id_files.png"
+        ],
+        /* achievements: [
+          "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "Securepass Sing In Contactless",
+        logo: "assets/images/sp_contacless_icon.png",
+        description: "SecurePass Sign-In Contactless is a streamlined solution for visitors who prefer to check in using their own smartphones rather than the SecurePass Kiosk. This app provides a fast, convenient, and touch-free way to register arrivals, enhancing safety, efficiency, and the overall visitor experience.",
+        tech: [
+          "Android Native",
+          "Java",
+          "Camera Scanner",
+        ],
+        url: "https://play.google.com/store/apps/details?id=com.healthsafe&hl=en-NZ",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/sp_contactless/cl_splash.png", 
+          "assets/images/screenshots/sp_contactless/cl_button.png", 
+          "assets/images/screenshots/sp_contactless/cl_canning.png",
+          "assets/images/screenshots/sp_contactless/cl_main.png",
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "Securepass with ICT",
+        logo: "assets/images/ic_sp_ict.png",
+        description: "SecurePass with ICT is a “satellite” app born from the partnership between ICT and HealthSafe. Designed to complement the main SecurePass platform, it allows contractors and authorized personnel to access doors directly through the app. As a satellite app, it requires SecurePass to be installed, ensuring that all user information is seamlessly synced between SecurePass and SecurePass with ICT for secure and efficient access control.",        tech: [
+          "Android Native",
+          "Java",
+          "REST API",
+          "Third part technology integration",
+          "Biometrics"
+        ],
+        url:"#",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/ict/ict_splash.png", 
+          "assets/images/screenshots/ict/ict_signin.png", 
+          "assets/images/screenshots/ict/ict_doors.png",
+          "assets/images/screenshots/ict/ict_pin.png",
+          "assets/images/screenshots/ict/ict_timer.png"
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "Securepass with Gallagher",
+        logo: "assets/images/ic_sp_gallagher.png",
+        description: "SecurePass with Gallagher is a “satellite” app developed through the partnership between Gallagher and HealthSafe. It extends the main SecurePass platform, enabling contractors and authorized personnel to access doors seamlessly via the app. As a satellite application, it requires SecurePass to be installed, allowing user information to synchronize securely between SecurePass and SecurePass with Gallagher.",
+        tech: [
+          "Android Native",
+          "Java",
+          "REST API",
+          "Third part technology integration",
+          "Biometrics"
+        ],
+        url:"#",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/gallagher/g_splash.png", 
+          "assets/images/screenshots/gallagher/g_signin.png", 
+          "assets/images/screenshots/gallagher/g_readers.png",
+          "assets/images/screenshots/gallagher/g_credentials.png",
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "Securepass with Inner Range",
+        logo: "assets/images/ic_sp_integriti.png",
+        description: "SecurePass with Inner Range is a satellite app created through the collaboration between Inner Range and HealthSafe. It enhances the main SecurePass platform by allowing contractors and authorized personnel to access doors directly from their devices. As a companion app, it requires SecurePass to be installed, ensuring that all user data is securely synchronized between SecurePass and SecurePass with Inner Range.",
+        tech: [
+          "Android Native",
+          "Java",
+          "REST API",
+          "Third part technology integration", 
+          "Camera Scanner",
+          "Biometrics"
+        ],
+        url:"#",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/sp_innerrange/spi_door_list.png", 
+          "assets/images/screenshots/sp_innerrange/spi_pin.png", 
+          "assets/images/screenshots/sp_innerrange/spi_countdown.png",
+          "assets/images/screenshots/sp_innerrange/spi_not_signin.png",
+          "assets/images/screenshots/sp_innerrange/spi_denied.png",
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "Securepass for Staff",
+        logo: "assets/images/ic_sp_staff.png",
+        description: "SecurePass for Staff is an app integrated with Inner Range technology that allows employees to sign in and out simply by entering or leaving through designated doors. Each user has access only to doors assigned to them within the company, ensuring precise access control. Additionally, the app uses geolocation to verify that employees are physically present in the building, adding an extra layer of security.",
+        tech: [
+          "Android Native",
+          "Kotlin",
+          "Jetpack",
+          "Retrofit",
+          "REST API",
+          "Third part technology integration",
+          "Biometrics"
+        ],
+        url:"#",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/sp_staff/sps_splash.png", 
+          "assets/images/screenshots/sp_staff/sps_phone.png", 
+          "assets/images/screenshots/sp_staff/sps_sms.png",
+          "assets/images/screenshots/sp_staff/sps_form.png",
+          "assets/images/screenshots/sp_staff/sps_main.png"
+
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "Assets PPM",
+        logo: "assets/images/ic_assets_ppm.png",
+        description: "Assets PPM is a HealthSafe product designed to streamline maintenance reporting for equipment. The app tracks key information such as the last maintenance performed, the responsible technician, and the status of ongoing or completed tasks. Technicians can leave comments directly in the system, ensuring full visibility of work performed. Each piece of equipment is assigned a QR code, which operators can scan using the app to instantly retrieve all relevant maintenance information. This enables efficient tracking, improved accountability, and better overall equipment management.",
+        tech: [
+          "Android Native",
+          "Java",
+          "REST API",
+          "Camera Scanner",
+        ],
+        url:"#",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/assets_ppm/ap_search.png", 
+          "assets/images/screenshots/assets_ppm/ap_assets_list.png", 
+          "assets/images/screenshots/assets_ppm/ap_details.png",
+          "assets/images/screenshots/assets_ppm/ap_service_log.png",
+          "assets/images/screenshots/assets_ppm/ap_service_time.png",
+          "assets/images/screenshots/assets_ppm/ap_comments.png",
+          "assets/images/screenshots/assets_ppm/ap_service.png",
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "CPFL Workforce System",
+        logo: "assets/images/ic_cws.png",
+        description: "CWS is an internal CPFL app built to empower the Field Crew during service calls, streamlining every step of their workflow. The app delivers real-time details about each site, including the reported issue, recommended preparations, and the most efficient route to reach it. Beyond navigation, it manages team sign-ins, tracks materials used or needed, and facilitates seamless reporting. The Field Crew and the headquarters team of engineers can communicate instantly via in-app chat, enabling quick guidance, coordination, and problem-solving. Meanwhile, headquarters can monitor operations in real time, ensuring safety and overall efficiency.",
+        tech: [
+          "Android Native",
+          "Java",
+          "REST API",
+          "Geolocation",
+          "Maps",
+        ],
+        url:"#",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/cws/cws_map.png", 
+          "assets/images/screenshots/cws/cws_end_event.png", 
+          "assets/images/screenshots/cws/cws_end_serv_form.png",
+          "assets/images/screenshots/cws/cws_end_service.png",
+        ],
+        /*achievements: [
+           "🔥 Daily Streaks Tracked",
+          "💪 Built with Mental Wellness Experts",
+          "📈 Featured on Product Hunt" 
+        ]*/
+      },
+      {
+        title: "PassKeeper",
+        logo: "assets/images/pass_keeper.png",
+        description: "PassKeeper is an offline password and information storage app developed by my company, Bruno Digital. All data within the app is fully encrypted, ensuring maximum privacy and security. Unlike most solutions today that rely heavily on cloud storage, PassKeeper is designed to operate entirely offline, offering users complete control over their sensitive information. This offline approach positions the app as a potential “blue ocean” solution in a market dominated by cloud-based services.",
+        url:"https://play.google.com/store/apps/details?id=com.sousa.bruno.pass_keeper&hl=en-NZ",
+        iosUrl:"#",
+        tech: [
+          "Flutter",
+          "Dart",
+          "SQLite"
+        ],
+        screens: [
+          "assets/images/screenshots/passkeeper/pk_login.png", 
+          "assets/images/screenshots/passkeeper/pk_sign_up.png", 
+          "assets/images/screenshots/passkeeper/pk_main.png",
+          "assets/images/screenshots/passkeeper/pk_pass.png",
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "MyMoney",
+        logo: "assets/images/my_money_icon.png",
+        description: "MyMoney is a personal finance app developed by my company, Bruno Digital. Designed to help users take full control of their budgets, the app allows goal setting and management, allocation planning, and investment projections. Users can track income and expenses and visualize their financial situation through intuitive charts, offering a complete overview of their budget. MyMoney operates entirely offline, ensuring privacy and security, and is currently in its testing phase, with a release on the Google Play Store planned in the coming weeks.",
+        tech: [
+          "Flutter",
+          "Dart",
+          "SQLite",
+          "Charts"
+        ],
+        url:"#",
+        iosUrl:"#",
+        screens: [
+          "assets/images/screenshots/my_money/mm_login.png", 
+          "assets/images/screenshots/my_money/mm_main.png", 
+          "assets/images/screenshots/my_money/mm_main2.png",
+          "assets/images/screenshots/my_money/mm_overview.png",
+          "assets/images/screenshots/my_money/mm_chart1.png",    
+          "assets/images/screenshots/my_money/mm_chart2.png",    
+          "assets/images/screenshots/my_money/mm_summary.png", 
+          "assets/images/screenshots/my_money/mm_goal_screen.png", 
+          "assets/images/screenshots/my_money/mm_goal2.png",
+          "assets/images/screenshots/my_money/mm_allocate.png",
+          "assets/images/screenshots/my_money/mm_projections.png",
+          
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+      {
+        title: "BTB Press",
+        logo: "assets/images/btb_press_icon.png",
+        description: "BTB is an app designed for Japanese learners of English, created to complement the textbook Learning English Vocabulary published by BTB Press. The app enhances the learning experience by providing interactive tools and exercises that help users expand their vocabulary and practice effectively alongside the book.",
+        
+        url:"#",
+        iosUrl:"#",
+        tech: [ 
+          "Android Native",
+          "Java",
+          "SQLite",
+          "Google Speech Synthesis",
+        ],
+        screens: [
+          "assets/images/screenshots/btb_press/btb_start.png", 
+          "assets/images/screenshots/btb_press/btb_mode.png", 
+          "assets/images/screenshots/btb_press/btb_card1.png",
+          "assets/images/screenshots/btb_press/btb_card2.png",
+          "assets/images/screenshots/btb_press/btb_result.png",    
+          "assets/images/screenshots/btb_press/btb_word_selection.png",    
+        ],
+        /*achievements: [
+           "🍽 5K+ Recipes Available",
+          "🌍 Used in 30+ countries",
+          "📱 Offline Mode Supported" 
+        ]*/
+      },
+    ];
+
+    let currentApp = 0;
+    let screenIndex = 0;
+    let currentScreens = apps[0].screens;
+
+function preloadImage(src, callback) {
+  const img = new Image();
+  img.onload = callback;
+  img.onerror = callback; // even if it fails, continue gracefully
+  img.src = src;
+}
+
+function selectApp(index) {
+  const app = apps[index];
+
+  const googlePlayBtn = document.getElementById("googlePlayBtn");
+  const appStoreBtn = document.getElementById("appStoreBtn");
+  
+  contentContainer.classList.add("fade-out");
+
+  preloadImage(app.logo, () => {
+    setTimeout(() => {
+      // Update content
+      appLogo.src = app.logo;
+      appTitle.textContent = app.title;
+      appDescription.textContent = app.description;
+      //var href = app.url || "#"; 
+
+      // Update visibility dynamically
+      if (app.url) {
+        googlePlayBtn.style.display = "inline-block";
+      } else {
+        googlePlayBtn.style.display = "none";
+      }
+
+      if (app.iosUrl) {
+        appStoreBtn.style.display = "inline-block";
+      } else {
+        appStoreBtn.style.display = "none";
+      }
+
+
+      techList.innerHTML = app.tech.map(t => `<li>${t}</li>`).join("");
+
+      // Prevent error if achievements are commented out
+      if (app.achievements) {
+        achievementList.innerHTML = app.achievements.map(a => `<li>${a}</li>`).join("");
+      } else {
+        achievementList.innerHTML = "";
+      }
+
+      currentScreens = app.screens;
+      screenIndex = 0;
+      screen.src = currentScreens[screenIndex];
+
+      contentContainer.classList.remove("fade-out");
+    }, 400);
+  });
+}
+
+function showApp(index) {
+  if (index === currentApp) return;
+  const app = apps[index];
+  const appContent = document.getElementById('appContent');
+
+  // Start transition
+  appContent.classList.remove('fade-slide-in');
+  appContent.classList.add('fade-slide-out');
+
+  preloadImage(app.logo, () => {
+    setTimeout(() => {
+      // Update app logo, title, description
+      appLogo.src = app.logo;
+      appTitle.textContent = app.title;
+      appDescription.textContent = app.description;
+
+      // ✅ FIX: Update store buttons visibility
+      const googlePlayBtn = document.getElementById("googlePlayBtn");
+      const appStoreBtn = document.getElementById("appStoreBtn");
+
+      // Show or hide Google Play button
+      if (app.url && app.url !== "#") {
+        googlePlayBtn.style.display = "inline-flex";
+        googlePlayBtn.href = app.url;
+      } else {
+        googlePlayBtn.style.display = "none";
+        googlePlayBtn.removeAttribute("href");
+      }
+
+      // Show or hide App Store button
+      if (app.iosUrl && app.iosUrl !== "#") {
+        appStoreBtn.style.display = "inline-flex";
+        appStoreBtn.href = app.iosUrl;
+      } else {
+        appStoreBtn.style.display = "none";
+        appStoreBtn.removeAttribute("href");
+      }
+
+      // Update tech stack
+      techList.innerHTML = "";
+      app.tech.forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        techList.appendChild(li);
+      });
+
+      // Update achievements if exist
+      if (app.achievements) {
+        achievementList.innerHTML = "";
+        app.achievements.forEach(a => {
+          const li = document.createElement("li");
+          li.textContent = a;
+          achievementList.appendChild(li);
+        });
+      } else {
+        achievementList.innerHTML = "";
+      }
+
+      // Update screenshots
+      currentApp = index;
+      screenIndex = 0;
+      screen.src = app.screens[screenIndex];
+
+      // Transition animation
+      appContent.classList.remove('fade-slide-out');
+      appContent.classList.add('fade-slide-in');
+
+      // Update active icon
+      appIcons.forEach((icon, i) =>
+        icon.classList.toggle("active", i === index)
+      );
+    }, 400);
+  });
+}
+
+  // ... your existing JS
+
+  // Auto-rotate app screens every 20s
+  setInterval(() => {
+    const app = apps[currentApp];
+    screen.style.opacity = 0;
+    setTimeout(() => {
+      screenIndex = (screenIndex + 1) % app.screens.length;
+      screen.src = app.screens[screenIndex];
+      screen.style.opacity = 1;
+    }, 400);
+  }, 5000);
+  </script>
+
+</body>
+</html>
